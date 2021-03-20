@@ -2,7 +2,7 @@
 
 ## Idea:
 
-Google sheets for monthly bugdet and annual budget will be entered in an automated way.
+Google sheets for monthly budget and annual budget will be entered in an automated way.
 
 ## References :
 
