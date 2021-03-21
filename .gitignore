@@ -1,2 +1,5 @@
 # keys file
 /keys.json
+
+# vscode
+.vscode

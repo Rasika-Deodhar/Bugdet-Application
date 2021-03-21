@@ -11,12 +11,24 @@ creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FI
 service = build('drive', 'v3', credentials=creds)
 
 results = service.files().list(
-        pageSize=10, fields="nextPageToken, files(id, name)").execute()
+        pageSize=20, fields="nextPageToken, files(id, name)").execute()
+items = results.get('files', [])
+
+curr_year = '2021'
+
+for item in items:
+    if item['name'] == curr_year:
+        results = service.files().list(q="'{}' in parents".format(item['id']),
+        spaces='drive',
+        pageSize=20, fields="nextPageToken, files(id, name)").execute()
+        print('results: ', results)
+        break
+
 items = results.get('files', [])
 
 if not items:
     print('No files found.')
 else:
-    print('Files:')
+    print("Files inside {0} :".format(curr_year))
     for item in items:
         print(u'{0} ({1})'.format(item['name'], item['id']))
