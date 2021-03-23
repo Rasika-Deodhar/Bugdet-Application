@@ -74,8 +74,17 @@ print(values)
 # sheet.values().update(spreadsheetId=test['id'], range='Expenses!D5', valueInputOption='USER_ENTERED', body={"values":values[0][0]}).execute()
 # sheet.values().update(spreadsheetId=test['id'], range='Expenses!D5', valueInputOption='USER_ENTERED', body={"values":values[0][0]}).execute()
 
-result = [value if index%2!=0 else "" for index, value in enumerate(values)]
-print(result)
+values_with_commas =  []
+for val in values:
+    values_with_commas.append(val)
+    values_with_commas.append('')
+
+values_with_commas.pop()
+
+print(values_with_commas)
+
+# result = [value if index%2!=0 else "" for index, value in enumerate(values)]
+# print(result)
 
 # for x in range(5):
 #     for y in range(5):
