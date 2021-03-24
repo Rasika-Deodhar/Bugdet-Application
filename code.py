@@ -25,14 +25,6 @@ for item in items:
 
 items = results.get('files', [])
 
-# if not items:
-#     print('No files found.')
-# else:
-#     print("Files inside {0} :".format(curr_year))
-#     for item in items:
-#         print(u'{0} ({1})'.format(item['name'], item['id']))
-
-
 # putting 1st Jan 2021 date to starting balance of annual budget
 values = None
 
@@ -59,6 +51,7 @@ sheet.values().update(spreadsheetId=test['id'], range='Setup!C13', valueInputOpt
 
 # All Jan total Expenses and Income in test Annual budget template
 
+# Expenses
 jan = next((elem for elem in items if elem['name'] == 'Jan ' + curr_year), None)
 sheet = service.spreadsheets()
 result = sheet.values().get(spreadsheetId=item['id'],
@@ -67,31 +60,27 @@ values = result.get('values', [])
 
 print(values)
 
-# [ values.insert(i, '') if i%2 else values[i] for i in range(0,len(values))]
-
-
-# test = next((elem for elem in items if elem['name'] == 'test'), None)
-# sheet.values().update(spreadsheetId=test['id'], range='Expenses!D5', valueInputOption='USER_ENTERED', body={"values":values[0][0]}).execute()
-# sheet.values().update(spreadsheetId=test['id'], range='Expenses!D5', valueInputOption='USER_ENTERED', body={"values":values[0][0]}).execute()
-
 values_with_commas =  []
 for val in values:
     values_with_commas.append(val)
-    values_with_commas.append('')
+    values_with_commas.append([''])
 
 values_with_commas.pop()
 
 print(values_with_commas)
 
-# result = [value if index%2!=0 else "" for index, value in enumerate(values)]
-# print(result)
 
-# for x in range(5):
-#     for y in range(5):
+test = next((elem for elem in items if elem['name'] == 'test'), None)
+sheet.values().update(spreadsheetId=test['id'], range='Expenses!D5', 
+                      valueInputOption='USER_ENTERED', body={"values":values_with_commas}).execute()
+
+# Incomes
+result = sheet.values().get(spreadsheetId=item['id'],
+range='Summary!K28:K29').execute()
+values = result.get('values', [])
+
+print(values)
 
 
-# [x for x in range(5) for y in range(5)]
-    
-
-
-# print(values)
+sheet.values().update(spreadsheetId=test['id'], range='Income!D4', 
+                      valueInputOption='USER_ENTERED', body={"values":values}).execute()

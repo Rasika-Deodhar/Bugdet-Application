@@ -4,6 +4,16 @@
 
 Google sheets for monthly budget and annual budget will be entered in an automated way.
 
+## Done:
+
+1. Able to read from monthly sheet.
+2. Read from monthly sheet and fill in annual sheet.
+
+## Next Steps:
+
+1. Should be able to create new sheet based on date provided.
+2. Should be able to identify existing sheet to input transaction based on iput date.
+
 ## References :
 
 1. https://www.youtube.com/watch?v=4ssigWmExak&ab_channel=LearnGoogleSpreadsheets
