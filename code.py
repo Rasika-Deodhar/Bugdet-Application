@@ -84,3 +84,47 @@ print(values)
 
 sheet.values().update(spreadsheetId=test['id'], range='Income!D4', 
                       valueInputOption='USER_ENTERED', body={"values":values}).execute()
+
+
+# get Transaction details and create entry or Sheet accordingly
+
+import datetime
+
+x = datetime.datetime(2021, 5, 17)
+print(x.date())
+
+month_mapping = {
+    1: 'Jan',
+    2: 'Feb',
+    3: 'March',
+    4: 'April',
+    5: 'May',
+    6: 'June',
+    7: 'July',
+    8: 'Aug',
+    9: 'Sept',
+    10: 'Oct',
+    11: 'Nov',
+    12: 'Dec'
+}
+
+print(str(month_mapping[x.date().month]) + ' ' + str(x.date().year))
+
+test = next((elem for elem in items if elem['name'] == str(month_mapping[x.date().month]) + ' ' + str(x.date().year)), None)
+print(test)
+
+if test is None:
+    spreadsheet = {
+    'properties': {
+        'title': str(month_mapping[x.date().month]) + ' ' + str(x.date().year)
+    }
+    }
+    spreadsheet = service.spreadsheets().create(body=spreadsheet,
+                                        fields='spreadsheetId').execute()
+    print('Spreadsheet ID: {0}'.format(spreadsheet.get('spreadsheetId')))
+else:
+    test = next((elem for elem in items if elem['name'] == 'test'), None)
+    print(test)
+    sheet.values().update(spreadsheetId=test['id'], range='Expenses!D22', 
+    valueInputOption='USER_ENTERED', body={"values":[[str(x.date())]]}).execute()
+
